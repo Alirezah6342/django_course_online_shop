@@ -1,3 +1,9 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 
-# Create your views here.
+from . forms import CustomUserCreationForm
+
+
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
+
