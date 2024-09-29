@@ -36,13 +36,29 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party apps
     'crispy_forms',
+    'allauth',
+    'allauth.account',
 
-
+    # local apps
     'accounts',
     'pages',
 
 ]
+
+SITE_ID = 1
+
+
+AUTHENTICATION_BACKENDS = [
+    #  django allauth
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -52,7 +68,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "allauth.account.middleware.AccountMiddleware",
 ]
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -136,5 +155,13 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # crispy forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+
+#  all auth setting
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
